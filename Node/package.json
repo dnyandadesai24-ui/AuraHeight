@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node user.js",
-    "dev": "nodemon user.js"
+    "start": "node User.js",
+    "dev": "nodemon User.js"
   },
   "keywords": [],
   "author": "",
