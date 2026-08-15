@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
@@ -36,12 +36,12 @@ export default function Dashboard() {
   }
 
   const statCards = [
-    { label: "Total Users", value: stats?.users || 0, icon: "👤", color: "icon-purple", trend: "Registered", link: "/admin/users" },
-    { label: "Total Residents", value: stats?.residents || 0, icon: "👥", color: "icon-teal", trend: "Booked", link: "/admin/users" },
-    { label: "Total Flats", value: stats?.flats || 0, icon: "🏢", color: "icon-gold", trend: "Managed", link: "/admin/flats" },
-    { label: "Available Flats", value: stats?.availableFlats || 0, icon: "✅", color: "icon-green", trend: "Open", link: "/admin/flats" },
-    { label: "Booked Flats", value: stats?.bookedFlats || 0, icon: "🔒", color: "icon-blue", trend: "Occupied", link: "/admin/flats" },
-    { label: "Total Bookings", value: stats?.bookings || 0, icon: "📋", color: "icon-teal", trend: "All Time", link: "/admin/bookings" },
+    { label: "Total Users", value: stats?.users || 0, icon: "ðŸ‘¤", color: "icon-purple", trend: "Registered", link: "/admin/users" },
+    { label: "Total Residents", value: stats?.residents || 0, icon: "ðŸ‘¥", color: "icon-teal", trend: "Booked", link: "/admin/users" },
+    { label: "Total Flats", value: stats?.flats || 0, icon: "ðŸ¢", color: "icon-gold", trend: "Managed", link: "/admin/flats" },
+    { label: "Available Flats", value: stats?.availableFlats || 0, icon: "âœ…", color: "icon-green", trend: "Open", link: "/admin/flats" },
+    { label: "Booked Flats", value: stats?.bookedFlats || 0, icon: "ðŸ”’", color: "icon-blue", trend: "Occupied", link: "/admin/flats" },
+    { label: "Total Bookings", value: stats?.bookings || 0, icon: "ðŸ“‹", color: "icon-teal", trend: "All Time", link: "/admin/bookings" },
   ];
 
   return (
@@ -49,12 +49,12 @@ export default function Dashboard() {
       {/* Page Header */}
       <div className="page-header">
         <div className="page-header-left">
-          <h1>📊 Dashboard</h1>
+          <h1>ðŸ“Š Dashboard</h1>
           <p>Welcome back! Here's what's happening in your society today.</p>
         </div>
         <div style={{ display: "flex", gap: 10 }}>
           <button className="btn btn-secondary btn-sm" onClick={fetchStats}>
-            🔄 Refresh
+            ðŸ”„ Refresh
           </button>
           <Link to="/admin/users" className="btn btn-primary btn-sm">
             + Add Resident
@@ -95,7 +95,7 @@ export default function Dashboard() {
       <div className="dashboard-grid" style={{ marginBottom: 20 }}>
         {/* Role Distribution */}
         <div style={{ background: "var(--bg-glass)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)", padding: 24 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20 }}>👥 Users by Status</h3>
+          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20 }}>ðŸ‘¥ Users by Status</h3>
           {stats?.roleStats?.length > 0 ? (
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {stats.roleStats.map((r, i) => {
@@ -124,7 +124,7 @@ export default function Dashboard() {
 
         {/* Flat Status */}
         <div style={{ background: "var(--bg-glass)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)", padding: 24 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20 }}>🏢 Flat Occupancy</h3>
+          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20 }}>ðŸ¢ Flat Occupancy</h3>
           {stats?.flats > 0 ? (
             <>
               <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
@@ -179,8 +179,8 @@ export default function Dashboard() {
         {/* Recent Users */}
         <div style={{ background: "var(--bg-glass)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)", padding: 24 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 700 }}>👥 Recent Residents</h3>
-            <Link to="/admin/users" style={{ fontSize: 12, color: "var(--primary-light)", textDecoration: "none" }}>View all →</Link>
+            <h3 style={{ fontSize: 16, fontWeight: 700 }}>ðŸ‘¥ Recent Residents</h3>
+            <Link to="/admin/users" style={{ fontSize: 12, color: "var(--primary-light)", textDecoration: "none" }}>View all â†’</Link>
           </div>
           {stats?.recentUsers?.length > 0 ? (
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -207,15 +207,15 @@ export default function Dashboard() {
         {/* Recent Bookings */}
         <div style={{ background: "var(--bg-glass)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)", padding: 24 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 700 }}>📋 Recent Bookings</h3>
-            <Link to="/admin/bookings" style={{ fontSize: 12, color: "var(--primary-light)", textDecoration: "none" }}>View all →</Link>
+            <h3 style={{ fontSize: 16, fontWeight: 700 }}>ðŸ“‹ Recent Bookings</h3>
+            <Link to="/admin/bookings" style={{ fontSize: 12, color: "var(--primary-light)", textDecoration: "none" }}>View all â†’</Link>
           </div>
           {stats?.recentBookings?.length > 0 ? (
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {stats.recentBookings.map((b, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <div style={{ width: 36, height: 36, borderRadius: "var(--radius-sm)", background: "rgba(8,145,178,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>
-                    🏠
+                    ðŸ 
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>

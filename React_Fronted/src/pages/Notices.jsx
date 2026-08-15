@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 export default function Notices() {
   const [notices, setNotices] = useState([]);
@@ -42,7 +42,7 @@ export default function Notices() {
         }}
       >
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-tag" style={{ justifyContent: "center" }}>📌 Notice Board</div>
+          <div className="section-tag" style={{ justifyContent: "center" }}>ðŸ“Œ Notice Board</div>
           <h1 className="section-title">
             Society <span>Announcements</span>
           </h1>
@@ -60,7 +60,7 @@ export default function Notices() {
             </div>
           ) : notices.length === 0 ? (
             <div style={{ textAlign: "center", padding: 60, background: "var(--bg-glass)", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>📭</div>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>ðŸ“­</div>
               <h3 style={{ color: "var(--text-primary)" }}>No notices at the moment.</h3>
             </div>
           ) : (
@@ -93,13 +93,13 @@ export default function Notices() {
           {/* Pagination */}
           {!loading && totalPages > 1 && (
             <div className="pagination" style={{ padding: "32px 0", justifyContent: "center" }}>
-              <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
+              <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>â€¹</button>
               {[...Array(totalPages)].map((_, i) => (
                 <button key={i} className={`page-btn ${page === i + 1 ? "active" : ""}`} onClick={() => setPage(i + 1)}>
                   {i + 1}
                 </button>
               ))}
-              <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
+              <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>â€º</button>
             </div>
           )}
         </div>

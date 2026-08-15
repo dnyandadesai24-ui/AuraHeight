@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
@@ -49,7 +49,7 @@ export default function MyBookings() {
         }}
       >
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-tag" style={{ justifyContent: "center" }}>🔑 Dashboard</div>
+          <div className="section-tag" style={{ justifyContent: "center" }}>ðŸ”‘ Dashboard</div>
           <h1 className="section-title">
             My <span>Bookings</span>
           </h1>
@@ -65,7 +65,7 @@ export default function MyBookings() {
             <div style={{ textAlign: "center", padding: 40 }}><div className="spinner"></div></div>
           ) : bookings.length === 0 ? (
             <div style={{ textAlign: "center", padding: 60, background: "var(--bg-glass)", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>🏠</div>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>ðŸ </div>
               <h3 style={{ color: "var(--text-primary)" }}>You haven't booked any flats yet.</h3>
             </div>
           ) : (
@@ -114,13 +114,13 @@ export default function MyBookings() {
           {/* Pagination */}
           {!loading && totalPages > 1 && (
             <div className="pagination" style={{ padding: "32px 0", justifyContent: "center" }}>
-              <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
+              <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>â€¹</button>
               {[...Array(totalPages)].map((_, i) => (
                 <button key={i} className={`page-btn ${page === i + 1 ? "active" : ""}`} onClick={() => setPage(i + 1)}>
                   {i + 1}
                 </button>
               ))}
-              <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
+              <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>â€º</button>
             </div>
           )}
         </div>

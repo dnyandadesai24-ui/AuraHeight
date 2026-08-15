@@ -1,4 +1,4 @@
-import {useState} from "react";
+﻿import {useState} from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -83,7 +83,7 @@ function Register(){
         }
 
         try {
-            await axios.post("http://localhost:3000/register", user);
+            await axios.post("https://auraheight.onrender.com/register", user);
             alert("Registration successful");
             navigate("/");
         } catch (error) {

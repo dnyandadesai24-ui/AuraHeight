@@ -1,9 +1,9 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logoSquare from "../assets/logo-square.jpg";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -38,14 +38,14 @@ export default function Login() {
 
   return (
     <div className="auth-page-wrapper">
-      {/* ── LEFT PANEL ── */}
+      {/* â”€â”€ LEFT PANEL â”€â”€ */}
       <div className="auth-panel-left">
         {/* Decorative blobs */}
         <div className="auth-blob auth-blob-1" />
         <div className="auth-blob auth-blob-2" />
 
         <div className="auth-panel-left-inner">
-          {/* Logo card — white square with shadow like reference */}
+          {/* Logo card â€” white square with shadow like reference */}
           <div className="auth-logo-card">
             <img src={logoSquare} alt="Aura Heights" className="auth-logo-img" />
           </div>
@@ -53,39 +53,39 @@ export default function Login() {
           <h2 className="auth-society-name">Aura Heights</h2>
           <p className="auth-society-sub">Co-Operative Housing Society Ltd.</p>
 
-          <h1 className="auth-panel-heading">Welcome Back! 👋</h1>
+          <h1 className="auth-panel-heading">Welcome Back! ðŸ‘‹</h1>
           <p className="auth-panel-desc">
             Sign in to manage your flat, track bookings, and stay connected with your community.
           </p>
 
           {/* Feature pill badges */}
           <div className="auth-badges">
-            <span className="auth-badge">🏠 Flat Management</span>
-            <span className="auth-badge">📋 Booking Tracker</span>
-            <span className="auth-badge">🔔 Notice Board</span>
-            <span className="auth-badge">🔒 Secure Access</span>
+            <span className="auth-badge">ðŸ  Flat Management</span>
+            <span className="auth-badge">ðŸ“‹ Booking Tracker</span>
+            <span className="auth-badge">ðŸ”” Notice Board</span>
+            <span className="auth-badge">ðŸ”’ Secure Access</span>
           </div>
         </div>
       </div>
 
-      {/* ── RIGHT PANEL ── */}
+      {/* â”€â”€ RIGHT PANEL â”€â”€ */}
       <div className="auth-panel-right">
         <div className="auth-form-card">
-          <Link to="/" className="auth-back-link">← Back to Home</Link>
+          <Link to="/" className="auth-back-link">â† Back to Home</Link>
 
           <h2 className="auth-form-title">Sign In</h2>
           <p className="auth-form-subtitle">Enter your credentials to access your account</p>
 
           {error && (
             <div className="auth-alert auth-alert-error">
-              ⚠️ {error}
+              âš ï¸ {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="auth-field">
               <label className="auth-label">
-                <span className="auth-label-icon">✉</span> Email Address
+                <span className="auth-label-icon">âœ‰</span> Email Address
               </label>
               <input
                 className="auth-input"
@@ -99,7 +99,7 @@ export default function Login() {
 
             <div className="auth-field">
               <label className="auth-label">
-                <span className="auth-label-icon">🔒</span> Password
+                <span className="auth-label-icon">ðŸ”’</span> Password
               </label>
               <div style={{ position: "relative" }}>
                 <input
@@ -116,7 +116,7 @@ export default function Login() {
                   onClick={() => setShowPass(!showPass)}
                   className="auth-eye-btn"
                 >
-                  {showPass ? "🙈" : "👁"}
+                  {showPass ? "ðŸ™ˆ" : "ðŸ‘"}
                 </button>
               </div>
             </div>
@@ -127,19 +127,19 @@ export default function Login() {
                   <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2, borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
                   Signing in...
                 </span>
-              ) : "🚀 Sign In"}
+              ) : "ðŸš€ Sign In"}
             </button>
           </form>
 
           <div className="auth-divider-line"><span>OR</span></div>
 
           <Link to="/admin/login" className="auth-secondary-btn">
-            🛡️ Admin Login
+            ðŸ›¡ï¸ Admin Login
           </Link>
 
           <p className="auth-footer-text">
             Don't have an account?{" "}
-            <Link to="/register" className="auth-footer-link">Create one →</Link>
+            <Link to="/register" className="auth-footer-link">Create one â†’</Link>
           </p>
         </div>
       </div>

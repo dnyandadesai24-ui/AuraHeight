@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:3000/login", user);
+            const res = await axios.post("https://auraheight.onrender.com/login", user);
             const data = res.data;
 
             if (data.flag === 0) {

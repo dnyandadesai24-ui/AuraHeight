@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 const STATUS_OPTIONS = ["Pending", "Confirmed", "Cancelled"];
 
@@ -89,26 +89,26 @@ export default function ManageBookings() {
     <div>
       {toast && (
         <div className={`toast toast-${toast.type === "error" ? "error" : "success"}`}>
-          {toast.type === "error" ? "❌" : "✅"} {toast.msg}
+          {toast.type === "error" ? "âŒ" : "âœ…"} {toast.msg}
         </div>
       )}
 
       {/* Header */}
       <div className="page-header">
         <div className="page-header-left">
-          <h1>📋 Manage Bookings</h1>
+          <h1>ðŸ“‹ Manage Bookings</h1>
           <p>Review, approve, and manage flat booking requests</p>
         </div>
-        <button className="btn btn-secondary btn-sm" onClick={fetchBookings}>🔄 Refresh</button>
+        <button className="btn btn-secondary btn-sm" onClick={fetchBookings}>ðŸ”„ Refresh</button>
       </div>
 
       {/* Summary */}
       <div className="admin-stat-cards">
         {[
-          { label: "Total Bookings", value: summary.total, icon: "📋", color: "icon-purple" },
-          { label: "Confirmed", value: summary.confirmed, icon: "✅", color: "icon-green" },
-          { label: "Pending", value: summary.pending, icon: "⏳", color: "icon-gold" },
-          { label: "Cancelled", value: summary.cancelled, icon: "❌", color: "icon-red" },
+          { label: "Total Bookings", value: summary.total, icon: "ðŸ“‹", color: "icon-purple" },
+          { label: "Confirmed", value: summary.confirmed, icon: "âœ…", color: "icon-green" },
+          { label: "Pending", value: summary.pending, icon: "â³", color: "icon-gold" },
+          { label: "Cancelled", value: summary.cancelled, icon: "âŒ", color: "icon-red" },
         ].map((c, i) => (
           <div key={i} className="admin-stat-card" style={{ cursor: "default" }}>
             <div className={`admin-stat-icon ${c.color}`}>{c.icon}</div>
@@ -123,7 +123,7 @@ export default function ManageBookings() {
       {/* Filters */}
       <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
         <div className="search-input-wrapper" style={{ flex: 1, minWidth: 200 }}>
-          <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>🔍</span>
+          <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>ðŸ”</span>
           <input placeholder="Search by resident, flat, wing..." value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <select className="form-input" style={{ width: "auto", minWidth: 150 }} value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
@@ -176,7 +176,7 @@ export default function ManageBookings() {
                         <span className="badge badge-info">{b.Payment_Type}</span>
                       </td>
                       <td style={{ fontSize: 12, color: "var(--text-secondary)" }}>
-                        {b.Booking_Date ? new Date(b.Booking_Date).toLocaleDateString("en-IN") : "—"}
+                        {b.Booking_Date ? new Date(b.Booking_Date).toLocaleDateString("en-IN") : "â€”"}
                       </td>
                       <td>
                         <span className={`badge ${getStatusBadge(b.Booking_Status)}`}>
@@ -187,12 +187,12 @@ export default function ManageBookings() {
                         <div style={{ display: "flex", gap: 6 }}>
                           {(!b.Booking_Status || b.Booking_Status === "Pending") && (
                             <button className="btn btn-success btn-sm" onClick={() => updateStatus(b.Booking_ID, "Confirmed")}>
-                              ✅
+                              âœ…
                             </button>
                           )}
                           {b.Booking_Status !== "Cancelled" && (
                             <button className="btn btn-danger btn-sm" onClick={() => handleCancel(b.Booking_ID)}>
-                              ❌
+                              âŒ
                             </button>
                           )}
                         </div>
@@ -206,13 +206,13 @@ export default function ManageBookings() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="pagination" style={{ padding: "16px 24px", justifyContent: "flex-end" }}>
-                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>â€¹</button>
                 {[...Array(totalPages)].map((_, i) => (
                   <button key={i} className={`page-btn ${page === i + 1 ? "active" : ""}`} onClick={() => setPage(i + 1)}>
                     {i + 1}
                   </button>
                 ))}
-                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>â€º</button>
               </div>
             )}
           </div>

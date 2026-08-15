@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 const EMPTY_FORM = {
   Flat_No: "", Wing: "", Flat_Type: "2BHK", Floor_No: "",
@@ -106,14 +106,14 @@ export default function ManageFlats() {
     <div>
       {toast && (
         <div className={`toast toast-${toast.type === "error" ? "error" : "success"}`}>
-          {toast.type === "error" ? "❌" : "✅"} {toast.msg}
+          {toast.type === "error" ? "âŒ" : "âœ…"} {toast.msg}
         </div>
       )}
 
       {/* Header */}
       <div className="page-header">
         <div className="page-header-left">
-          <h1>🏢 Manage Flats</h1>
+          <h1>ðŸ¢ Manage Flats</h1>
           <p>Add, edit, and monitor all residential flats</p>
         </div>
         <button className="btn btn-primary" onClick={openAdd}>+ Add Flat</button>
@@ -122,9 +122,9 @@ export default function ManageFlats() {
       {/* Summary Cards */}
       <div className="admin-stat-cards">
         {[
-          { label: "Total Flats", value: flats.length, icon: "🏢", color: "icon-purple" },
-          { label: "Available", value: available, icon: "✅", color: "icon-green" },
-          { label: "Booked", value: booked, icon: "🔒", color: "icon-blue" },
+          { label: "Total Flats", value: flats.length, icon: "ðŸ¢", color: "icon-purple" },
+          { label: "Available", value: available, icon: "âœ…", color: "icon-green" },
+          { label: "Booked", value: booked, icon: "ðŸ”’", color: "icon-blue" },
         ].map((c, i) => (
           <div key={i} className="admin-stat-card" style={{ cursor: "default" }}>
             <div className={`admin-stat-icon ${c.color}`}>{c.icon}</div>
@@ -139,7 +139,7 @@ export default function ManageFlats() {
       {/* Filters */}
       <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
         <div className="search-input-wrapper" style={{ flex: 1, minWidth: 200 }}>
-          <span className="search-icon" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>🔍</span>
+          <span className="search-icon" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>ðŸ”</span>
           <input placeholder="Search flat no, wing, type..." value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <select className="form-input" style={{ width: "auto", minWidth: 140 }} value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
@@ -187,7 +187,7 @@ export default function ManageFlats() {
                       <td style={{ fontSize: 13, color: "var(--text-secondary)" }}>Floor {f.Floor_No}</td>
                       <td style={{ fontSize: 13 }}>{f.Area_Sqft} sq.ft</td>
                       <td style={{ fontWeight: 600, color: "var(--accent)" }}>
-                        ₹{Number(f.Maintenance_Amount || 0).toLocaleString()}
+                        â‚¹{Number(f.Maintenance_Amount || 0).toLocaleString()}
                       </td>
                       <td>
                         <span className={`badge ${f.Status === "Available" ? "badge-success" : "badge-danger"}`}>
@@ -196,8 +196,8 @@ export default function ManageFlats() {
                       </td>
                       <td>
                         <div style={{ display: "flex", gap: 8 }}>
-                          <button className="btn btn-secondary btn-sm" onClick={() => openEdit(f)}>✏️ Edit</button>
-                          <button className="btn btn-danger btn-sm" onClick={() => handleDelete(f.Flat_ID, f.Flat_No)}>🗑️</button>
+                          <button className="btn btn-secondary btn-sm" onClick={() => openEdit(f)}>âœï¸ Edit</button>
+                          <button className="btn btn-danger btn-sm" onClick={() => handleDelete(f.Flat_ID, f.Flat_No)}>ðŸ—‘ï¸</button>
                         </div>
                       </td>
                     </tr>
@@ -209,13 +209,13 @@ export default function ManageFlats() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="pagination" style={{ padding: "16px 24px", justifyContent: "flex-end" }}>
-                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>â€¹</button>
                 {[...Array(totalPages)].map((_, i) => (
                   <button key={i} className={`page-btn ${page === i + 1 ? "active" : ""}`} onClick={() => setPage(i + 1)}>
                     {i + 1}
                   </button>
                 ))}
-                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>â€º</button>
               </div>
             )}
           </div>
@@ -227,8 +227,8 @@ export default function ManageFlats() {
         <div className="modal-overlay" onClick={e => e.target === e.currentTarget && setShowModal(false)}>
           <div className="modal-box">
             <div className="modal-header">
-              <h3 className="modal-title">{editFlat ? "✏️ Edit Flat" : "➕ Add Flat"}</h3>
-              <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
+              <h3 className="modal-title">{editFlat ? "âœï¸ Edit Flat" : "âž• Add Flat"}</h3>
+              <button className="modal-close" onClick={() => setShowModal(false)}>âœ•</button>
             </div>
 
             <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -265,7 +265,7 @@ export default function ManageFlats() {
                   <input className="form-input" type="number" required placeholder="850" value={form.Area_Sqft} onChange={e => setForm({ ...form, Area_Sqft: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Maintenance (₹) *</label>
+                  <label className="form-label">Maintenance (â‚¹) *</label>
                   <input className="form-input" type="number" required placeholder="2500" value={form.Maintenance_Amount} onChange={e => setForm({ ...form, Maintenance_Amount: e.target.value })} />
                 </div>
               </div>

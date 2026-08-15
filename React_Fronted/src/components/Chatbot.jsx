@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import "../chatbot.css";
 
@@ -40,7 +40,7 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:3000/chat", { message: userMessage.text, mode });
+      const res = await axios.post("https://auraheight.onrender.com/chat", { message: userMessage.text, mode });
       setMessages((prev) => [...prev, { text: res.data.reply, isBot: true }]);
     } catch (error) {
       setMessages((prev) => [...prev, { text: "Sorry, I am having trouble answering right now.", isBot: true }]);
@@ -59,7 +59,7 @@ export default function Chatbot() {
       <div className={`chatbot-window ${isOpen ? "active" : ""}`}>
         <div className="chatbot-header">
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontSize: 24 }}>✨</span>
+            <span style={{ fontSize: 24 }}>âœ¨</span>
             <div>
               <h4 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>AuraHeights Assistant</h4>
               <p style={{ margin: 0, fontSize: 12, opacity: 0.9 }}>Online & ready to help</p>

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 const TYPE_COLORS = {
   "1BHK": "#0891b2",
@@ -12,7 +12,7 @@ const TYPE_COLORS = {
   "Studio": "#10b981",
 };
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function Flats() {
   const [flats, setFlats] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -72,7 +72,7 @@ export default function Flats() {
       <section style={{ paddingTop: 120, paddingBottom: 60, background: "var(--gradient-hero)", textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(8,145,178,0.14) 0%, transparent 70%)" }} />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-tag" style={{ justifyContent: "center" }}>🏢 Available Flats</div>
+          <div className="section-tag" style={{ justifyContent: "center" }}>ðŸ¢ Available Flats</div>
           <h1 className="section-title">Find Your Perfect <span>Home</span></h1>
           <p className="section-subtitle" style={{ margin: "0 auto", textAlign: "center" }}>
             Browse our curated selection of residential flats. Filter by wing, type, or availability.
@@ -100,7 +100,7 @@ export default function Flats() {
               <option value="Booked">Booked</option>
             </select>
             {(filters.wing || filters.type || filters.status) && (
-              <button className="btn btn-secondary btn-sm" onClick={() => setFilters({ wing: "", type: "", status: "" })}>✕ Clear</button>
+              <button className="btn btn-secondary btn-sm" onClick={() => setFilters({ wing: "", type: "", status: "" })}>âœ• Clear</button>
             )}
             <span style={{ marginLeft: "auto", fontSize: 14, color: "var(--text-muted)" }}>
               {filtered.length} flat{filtered.length !== 1 ? "s" : ""} found
@@ -119,7 +119,7 @@ export default function Flats() {
             </div>
           ) : filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: "60px 0" }}>
-              <div style={{ fontSize: 64, marginBottom: 16 }}>🏠</div>
+              <div style={{ fontSize: 64, marginBottom: 16 }}>ðŸ </div>
               <h3 style={{ color: "var(--text-secondary)", fontSize: 20 }}>No flats found</h3>
               <p style={{ color: "var(--text-muted)", marginTop: 8 }}>Try adjusting your filters</p>
             </div>
@@ -134,13 +134,13 @@ export default function Flats() {
           {/* Pagination */}
           {!loading && totalPages > 1 && (
             <div className="pagination" style={{ padding: "32px 0", justifyContent: "center" }}>
-              <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
+              <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>â€¹</button>
               {[...Array(totalPages)].map((_, i) => (
                 <button key={i} className={`page-btn ${page === i + 1 ? "active" : ""}`} onClick={() => setPage(i + 1)}>
                   {i + 1}
                 </button>
               ))}
-              <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
+              <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>â€º</button>
             </div>
           )}
         </div>
@@ -151,7 +151,7 @@ export default function Flats() {
   );
 }
 
-// ─── Flat Card with Booking Modal ─────────────────────────────────────────────
+// â”€â”€â”€ Flat Card with Booking Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function FlatCard({ flat, onBooked }) {
   const [showModal, setShowModal] = useState(false);
   const [paymentType, setPaymentType] = useState("Online");
@@ -170,7 +170,7 @@ function FlatCard({ flat, onBooked }) {
     const userData = localStorage.getItem("society_user");
     if (!userData) {
       console.log("No userData found. Redirecting to login...");
-      // Not logged in — save flat intent and send to login
+      // Not logged in â€” save flat intent and send to login
       localStorage.setItem("pending_booking_flat_id", String(flat.Flat_ID));
       window.location.href = "/login";
       return;
@@ -201,7 +201,7 @@ function FlatCard({ flat, onBooked }) {
       return;
     }
 
-    // Handle various shapes of stored user data — login API returns uid
+    // Handle various shapes of stored user data â€” login API returns uid
     const userId =
       userData?.uid ||
       userData?.user?.User_ID ||
@@ -223,7 +223,7 @@ function FlatCard({ flat, onBooked }) {
         Payment_Type: paymentType,
       });
       setShowModal(false);
-      showToast("🎉 Flat booked! Admin will confirm your booking shortly.");
+      showToast("ðŸŽ‰ Flat booked! Admin will confirm your booking shortly.");
       onBooked(); // refresh list so flat shows as Booked
     } catch (err) {
       showToast(err.response?.data?.message || "Booking failed. Please try again.", "error");
@@ -273,14 +273,14 @@ function FlatCard({ flat, onBooked }) {
                 background: `linear-gradient(135deg, ${accentColor}, ${accentColor}99)`,
                 display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26,
               }}>
-                🏠
+                ðŸ 
               </div>
               <div>
                 <h3 style={{ fontSize: 19, fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>
                   Confirm Booking
                 </h3>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "4px 0 0" }}>
-                  Flat {flat.Flat_No} &nbsp;·&nbsp; Wing {flat.Wing} &nbsp;·&nbsp; Floor {flat.Floor_No}
+                  Flat {flat.Flat_No} &nbsp;Â·&nbsp; Wing {flat.Wing} &nbsp;Â·&nbsp; Floor {flat.Floor_No}
                 </p>
               </div>
             </div>
@@ -294,7 +294,7 @@ function FlatCard({ flat, onBooked }) {
               {[
                 { label: "Type", value: flat.Flat_Type },
                 { label: "Area", value: `${flat.Area_Sqft} sq.ft` },
-                { label: "Maintenance", value: `₹${Number(flat.Maintenance_Amount).toLocaleString()}/mo` },
+                { label: "Maintenance", value: `â‚¹${Number(flat.Maintenance_Amount).toLocaleString()}/mo` },
                 { label: "Status", value: flat.Status },
               ].map((d, i) => (
                 <div key={i}>
@@ -351,7 +351,7 @@ function FlatCard({ flat, onBooked }) {
                     <div className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
                     Booking...
                   </span>
-                ) : "✅ Confirm Booking"}
+                ) : "âœ… Confirm Booking"}
               </button>
             </div>
           </div>
@@ -366,7 +366,7 @@ function FlatCard({ flat, onBooked }) {
         >
           <div>
             <div className="flat-number">Flat {flat.Flat_No}</div>
-            <div className="flat-wing">Wing {flat.Wing} · Floor {flat.Floor_No}</div>
+            <div className="flat-wing">Wing {flat.Wing} Â· Floor {flat.Floor_No}</div>
           </div>
           <span
             className={`badge ${flat.Status === "Available" ? "badge-success" : flat.Status === "Pending" ? "badge-warning" : "badge-danger"}`}
@@ -388,14 +388,14 @@ function FlatCard({ flat, onBooked }) {
           <div className="flat-info-row">
             <span className="flat-info-label">Maintenance</span>
             <span className="flat-info-value" style={{ color: "var(--accent)" }}>
-              ₹{Number(flat.Maintenance_Amount).toLocaleString()}/mo
+              â‚¹{Number(flat.Maintenance_Amount).toLocaleString()}/mo
             </span>
           </div>
         </div>
 
         <div className="flat-card-footer">
           <span className={`badge ${flat.Status === "Available" ? "badge-success" : flat.Status === "Pending" ? "badge-warning" : "badge-danger"}`}>
-            {flat.Status === "Available" ? "✅ Available" : flat.Status === "Pending" ? "⏳ Pending" : "🔒 Booked"}
+            {flat.Status === "Available" ? "âœ… Available" : flat.Status === "Pending" ? "â³ Pending" : "ðŸ”’ Booked"}
           </span>
           {flat.Status === "Available" && (
             <button className="btn btn-primary btn-sm" onClick={handleBookNow}>

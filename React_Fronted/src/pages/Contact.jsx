@@ -1,9 +1,9 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 export default function Contact() {
   const [form, setForm] = useState({ Name: "", Email: "", Subject: "", Message: "" });
@@ -19,7 +19,7 @@ export default function Contact() {
 
     try {
       await axios.post(`${API}/contact`, form);
-      setSuccess("✅ Your message has been sent successfully! We'll get back to you soon.");
+      setSuccess("âœ… Your message has been sent successfully! We'll get back to you soon.");
       setForm({ Name: "", Email: "", Subject: "", Message: "" });
     } catch (err) {
       setError(err.response?.data?.message || "Failed to send message. Please try again.");
@@ -29,10 +29,10 @@ export default function Contact() {
   };
 
   const contactInfo = [
-    { icon: "📧", label: "Email", value: "admin@auraheights.com", link: "mailto:admin@auraheights.com" },
-    { icon: "📞", label: "Phone", value: "+91 98765 43210", link: "tel:+919876543210" },
-    { icon: "📍", label: "Location", value: "123 Horizon Ave, Sector 45", link: "#" },
-    { icon: "🕒", label: "Office Hours", value: "Mon–Sat, 9AM – 6PM", link: "#" },
+    { icon: "ðŸ“§", label: "Email", value: "admin@auraheights.com", link: "mailto:admin@auraheights.com" },
+    { icon: "ðŸ“ž", label: "Phone", value: "+91 98765 43210", link: "tel:+919876543210" },
+    { icon: "ðŸ“", label: "Location", value: "123 Horizon Ave, Sector 45", link: "#" },
+    { icon: "ðŸ•’", label: "Office Hours", value: "Monâ€“Sat, 9AM â€“ 6PM", link: "#" },
   ];
 
   return (
@@ -52,7 +52,7 @@ export default function Contact() {
       >
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(8,145,178,0.13) 0%, transparent 70%)" }} />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-tag" style={{ justifyContent: "center" }}>📞 Contact Us</div>
+          <div className="section-tag" style={{ justifyContent: "center" }}>ðŸ“ž Contact Us</div>
           <h1 className="section-title">
             Get in <span>Touch</span>
           </h1>
@@ -91,7 +91,7 @@ export default function Contact() {
                   Follow Us
                 </h4>
                 <div style={{ display: "flex", gap: 12 }}>
-                  {["🐦 Twitter", "📘 Facebook", "📷 Instagram"].map((s, i) => (
+                  {["ðŸ¦ Twitter", "ðŸ“˜ Facebook", "ðŸ“· Instagram"].map((s, i) => (
                     <a
                       key={i}
                       href="#"
@@ -192,7 +192,7 @@ export default function Contact() {
                       Sending...
                     </span>
                   ) : (
-                    "📤 Send Message"
+                    "ðŸ“¤ Send Message"
                   )}
                 </button>
               </form>

@@ -1,9 +1,9 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import logoSquare from "../../assets/logo-square.jpg";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 export default function AdminLogin() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -34,7 +34,7 @@ export default function AdminLogin() {
 
   return (
     <div className="auth-page-wrapper">
-      {/* ── LEFT PANEL ── */}
+      {/* â”€â”€ LEFT PANEL â”€â”€ */}
       <div className="auth-panel-left">
         <div className="auth-blob auth-blob-1" />
         <div className="auth-blob auth-blob-2" />
@@ -48,41 +48,41 @@ export default function AdminLogin() {
           <h2 className="auth-society-name">Aura Heights</h2>
           <p className="auth-society-sub">Co-Operative Housing Society Ltd.</p>
 
-          <h1 className="auth-panel-heading">Admin Portal 🛡️</h1>
+          <h1 className="auth-panel-heading">Admin Portal ðŸ›¡ï¸</h1>
           <p className="auth-panel-desc">
             Restricted access for authorized administrators only. Manage residents, flats, bookings, and society operations.
           </p>
 
           <div className="auth-badges">
-            <span className="auth-badge">👥 Manage Residents</span>
-            <span className="auth-badge">🏢 Flat Oversight</span>
-            <span className="auth-badge">📊 Booking Control</span>
-            <span className="auth-badge">🔔 Send Notices</span>
+            <span className="auth-badge">ðŸ‘¥ Manage Residents</span>
+            <span className="auth-badge">ðŸ¢ Flat Oversight</span>
+            <span className="auth-badge">ðŸ“Š Booking Control</span>
+            <span className="auth-badge">ðŸ”” Send Notices</span>
           </div>
         </div>
       </div>
 
-      {/* ── RIGHT PANEL ── */}
+      {/* â”€â”€ RIGHT PANEL â”€â”€ */}
       <div className="auth-panel-right">
         <div className="auth-form-card">
-          <Link to="/login" className="auth-back-link">← Back to User Login</Link>
+          <Link to="/login" className="auth-back-link">â† Back to User Login</Link>
 
           <h2 className="auth-form-title">Admin Sign In</h2>
           <p className="auth-form-subtitle">Enter your administrator credentials</p>
 
           {/* Restricted access notice */}
           <div className="auth-notice-box">
-            ⚠️ Restricted Access — Authorized personnel only
+            âš ï¸ Restricted Access â€” Authorized personnel only
           </div>
 
           {error && (
-            <div className="auth-alert auth-alert-error">⚠️ {error}</div>
+            <div className="auth-alert auth-alert-error">âš ï¸ {error}</div>
           )}
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="auth-field">
               <label className="auth-label">
-                <span className="auth-label-icon">👤</span> Admin Username
+                <span className="auth-label-icon">ðŸ‘¤</span> Admin Username
               </label>
               <input
                 className="auth-input"
@@ -97,7 +97,7 @@ export default function AdminLogin() {
 
             <div className="auth-field">
               <label className="auth-label">
-                <span className="auth-label-icon">🔐</span> Password
+                <span className="auth-label-icon">ðŸ”</span> Password
               </label>
               <div style={{ position: "relative" }}>
                 <input
@@ -115,7 +115,7 @@ export default function AdminLogin() {
                   onClick={() => setShowPass(!showPass)}
                   className="auth-eye-btn"
                 >
-                  {showPass ? "🙈" : "👁"}
+                  {showPass ? "ðŸ™ˆ" : "ðŸ‘"}
                 </button>
               </div>
               <p style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>
@@ -129,13 +129,13 @@ export default function AdminLogin() {
                   <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2, borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
                   Authenticating...
                 </span>
-              ) : "🛡️ Access Admin Panel"}
+              ) : "ðŸ›¡ï¸ Access Admin Panel"}
             </button>
           </form>
 
           <p className="auth-footer-text" style={{ marginTop: 20 }}>
             Not an admin?{" "}
-            <Link to="/login" className="auth-footer-link">Go to User Login →</Link>
+            <Link to="/login" className="auth-footer-link">Go to User Login â†’</Link>
           </p>
         </div>
       </div>

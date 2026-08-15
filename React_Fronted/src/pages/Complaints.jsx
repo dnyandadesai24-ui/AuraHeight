@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const API = "http://localhost:3000";
+const API = "https://auraheight.onrender.com";
 
 export default function Complaints() {
   const [complaints, setComplaints] = useState([]);
@@ -63,7 +63,7 @@ export default function Complaints() {
         }}
       >
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-tag" style={{ justifyContent: "center" }}>📝 Helpdesk</div>
+          <div className="section-tag" style={{ justifyContent: "center" }}>ðŸ“ Helpdesk</div>
           <h1 className="section-title">
             Submit a <span>Complaint</span>
           </h1>
