@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const API = "https://auraheight.onrender.com";
@@ -96,14 +96,14 @@ export default function ManageUsers() {
       {/* Toast */}
       {toast && (
         <div className={`toast toast-${toast.type === "error" ? "error" : "success"}`}>
-          {toast.type === "error" ? "âŒ" : "âœ…"} {toast.msg}
+          {toast.type === "error" ? "❌" : "✅"} {toast.msg}
         </div>
       )}
 
       {/* Header */}
       <div className="page-header">
         <div className="page-header-left">
-          <h1>ðŸ‘¥ Manage {activeTab}s</h1>
+          <h1>👥 Manage {activeTab}s</h1>
           <p>View, add, edit, and remove society {activeTab.toLowerCase()}s</p>
         </div>
         <button className="btn btn-primary" onClick={openAdd}>
@@ -130,7 +130,7 @@ export default function ManageUsers() {
       {/* Search */}
       <div style={{ marginBottom: 20 }} className="search-bar">
         <div className="search-input-wrapper">
-          <span className="search-icon" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>ðŸ”</span>
+          <span className="search-icon" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>🔍 </span>
           <input
             placeholder="Search by name, email, or username..."
             value={search}
@@ -210,10 +210,10 @@ export default function ManageUsers() {
                       )}
                       <td>    <div style={{ display: "flex", gap: 8 }}>
                             <button className="btn btn-secondary btn-sm" onClick={() => openEdit(u)}>
-                              âœï¸ Edit
+                              ✏️ Edit
                             </button>
                             <button className="btn btn-danger btn-sm" onClick={() => handleDelete(u.id, u.full_name)}>
-                              ðŸ—‘ï¸
+                              🗑️
                             </button>
                           </div>
                         </td>
@@ -227,13 +227,13 @@ export default function ManageUsers() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="pagination" style={{ padding: "16px 24px", justifyContent: "flex-end" }}>
-                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>â€¹</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
                 {[...Array(totalPages)].map((_, i) => (
                   <button key={i} className={`page-btn ${page === i + 1 ? "active" : ""}`} onClick={() => setPage(i + 1)}>
                     {i + 1}
                   </button>
                 ))}
-                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>â€º</button>
+                <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
               </div>
             )}
           </>
@@ -245,8 +245,8 @@ export default function ManageUsers() {
         <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && setShowModal(false)}>
           <div className="modal-box">
             <div className="modal-header">
-              <h3 className="modal-title">{editUser ? "âœï¸ Edit Resident" : "âž• Add Resident"}</h3>
-              <button className="modal-close" onClick={() => setShowModal(false)}>âœ•</button>
+              <h3 className="modal-title">{editUser ? "✏️ Edit Resident" : "➕ Add Resident"}</h3>
+              <button className="modal-close" onClick={() => setShowModal(false)}>✖</button>
             </div>
 
             <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -273,7 +273,7 @@ export default function ManageUsers() {
 
               <div className="form-group">
                 <label className="form-label">{editUser ? "New Password (leave blank to keep current)" : "Password *"}</label>
-                <input className="form-input" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required={!editUser} minLength={editUser ? 0 : 6} />
+                <input className="form-input" type="password" placeholder="••••••••" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required={!editUser} minLength={editUser ? 0 : 6} />
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>

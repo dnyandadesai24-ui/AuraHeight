@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const API = "https://auraheight.onrender.com";
@@ -58,7 +58,7 @@ export default function ContactMessages() {
     <div>
       {toast && (
         <div className={`toast toast-${toast.type === "error" ? "error" : "success"}`}>
-          {toast.type === "error" ? "âŒ" : "âœ…"} {toast.msg}
+          {toast.type === "error" ? "❌" : "✅"} {toast.msg}
         </div>
       )}
 
@@ -82,7 +82,7 @@ export default function ContactMessages() {
           >
             {contacts.length} Messages
           </span>
-          <button className="btn btn-secondary btn-sm" onClick={fetchContacts}>ðŸ”„ Refresh</button>
+          <button className="btn btn-secondary btn-sm" onClick={fetchContacts}>🔄 Refresh</button>
         </div>
       </div>
 
@@ -168,7 +168,7 @@ export default function ContactMessages() {
                 <button className="btn btn-danger btn-sm" onClick={() => handleDelete(selected.id)}>
                   ðŸ—‘ï¸ Delete
                 </button>
-                <button className="btn btn-secondary btn-sm" onClick={() => setSelected(null)}>âœ•</button>
+                <button className="btn btn-secondary btn-sm" onClick={() => setSelected(null)}>✖</button>
               </div>
             </div>
 
@@ -210,7 +210,7 @@ export default function ContactMessages() {
                 className="btn btn-primary"
                 style={{ marginTop: 8, justifyContent: "center" }}
               >
-                ðŸ“§ Reply via Email
+                📧 Reply via Email
               </a>
             </div>
           </div>

@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logoSquare from "../assets/logo-square.jpg";
@@ -43,7 +43,7 @@ export default function Register() {
 
   return (
     <div className="auth-page-wrapper">
-      {/* â”€â”€ LEFT PANEL â”€â”€ */}
+      {/* —— LEFT PANEL —— */}
       <div className="auth-panel-left">
         <div className="auth-blob auth-blob-1" />
         <div className="auth-blob auth-blob-2" />
@@ -56,35 +56,35 @@ export default function Register() {
           <h2 className="auth-society-name">Aura Heights</h2>
           <p className="auth-society-sub">Co-Operative Housing Society Ltd.</p>
 
-          <h1 className="auth-panel-heading">Let's Get You Started! âœ¨</h1>
+          <h1 className="auth-panel-heading">Let's Get You Started! ✨</h1>
           <p className="auth-panel-desc">
             Create your free account and access your residential portal, book flats, and connect with your community.
           </p>
 
           <div className="auth-badges">
-            <span className="auth-badge">âœ… Free Registration</span>
-            <span className="auth-badge">ðŸ“¬ Email Confirmation</span>
-            <span className="auth-badge">ðŸŒŸ Full Portal Access</span>
+            <span className="auth-badge">✅ Free Registration</span>
+            <span className="auth-badge">📩 Email Confirmation</span>
+            <span className="auth-badge">🌟 Full Portal Access</span>
             <span className="auth-badge">ðŸ¡ Society Services</span>
           </div>
         </div>
       </div>
 
-      {/* â”€â”€ RIGHT PANEL â”€â”€ */}
+      {/* —— RIGHT PANEL —— */}
       <div className="auth-panel-right auth-panel-right-scroll">
         <div className="auth-form-card auth-form-card-wide">
-          <Link to="/" className="auth-back-link">â† Back to Home</Link>
+          <Link to="/" className="auth-back-link">← Back to Home</Link>
 
           <h2 className="auth-form-title">Create Account</h2>
           <p className="auth-form-subtitle">Fill in the details below to get started</p>
 
-          {error && <div className="auth-alert auth-alert-error">âš ï¸ {error}</div>}
-          {success && <div className="auth-alert auth-alert-success">âœ… {success}</div>}
+          {error && <div className="auth-alert auth-alert-error">⚠️ {error}</div>}
+          {success && <div className="auth-alert auth-alert-success">✅ {success}</div>}
 
           <form onSubmit={handleSubmit} className="auth-form">
 
             <div className="auth-field">
-              <label className="auth-label"><span className="auth-label-icon">ðŸ‘¤</span> Full Name</label>
+              <label className="auth-label"><span className="auth-label-icon">👤</span> Full Name</label>
               <input
                 className="auth-input"
                 type="text"
@@ -121,7 +121,7 @@ export default function Register() {
             </div>
 
             <div className="auth-field">
-              <label className="auth-label"><span className="auth-label-icon">âœ‰</span> Email Address</label>
+              <label className="auth-label"><span className="auth-label-icon">✉️</span> Email Address</label>
               <input
                 className="auth-input"
                 type="email"
@@ -159,7 +159,7 @@ export default function Register() {
             </div>
 
             <div className="auth-field">
-              <label className="auth-label"><span className="auth-label-icon">ðŸ”’</span> Password</label>
+              <label className="auth-label"><span className="auth-label-icon">🔒</span> Password</label>
               <div style={{ position: "relative" }}>
                 <input
                   className="auth-input"
@@ -176,7 +176,7 @@ export default function Register() {
                   onClick={() => setShowPass(!showPass)}
                   className="auth-eye-btn"
                 >
-                  {showPass ? "ðŸ™ˆ" : "ðŸ‘"}
+                  {showPass ? "🙈" : "ðŸ‘"}
                 </button>
               </div>
             </div>
@@ -199,13 +199,13 @@ export default function Register() {
                   <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2, borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
                   Creating account...
                 </span>
-              ) : "ðŸš€ Create My Account"}
+              ) : "🚀 Create My Account"}
             </button>
           </form>
 
           <p className="auth-footer-text">
             Already have an account?{" "}
-            <Link to="/login" className="auth-footer-link">Sign in instead â†’</Link>
+            <Link to="/login" className="auth-footer-link">Sign in instead →</Link>
           </p>
         </div>
       </div>

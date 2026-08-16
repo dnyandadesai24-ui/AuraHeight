@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import logoSquare from "../../assets/logo-square.jpg";
@@ -34,7 +34,7 @@ export default function AdminLogin() {
 
   return (
     <div className="auth-page-wrapper">
-      {/* â”€â”€ LEFT PANEL â”€â”€ */}
+      {/* —— LEFT PANEL —— */}
       <div className="auth-panel-left">
         <div className="auth-blob auth-blob-1" />
         <div className="auth-blob auth-blob-2" />
@@ -57,32 +57,32 @@ export default function AdminLogin() {
             <span className="auth-badge">ðŸ‘¥ Manage Residents</span>
             <span className="auth-badge">ðŸ¢ Flat Oversight</span>
             <span className="auth-badge">ðŸ“Š Booking Control</span>
-            <span className="auth-badge">ðŸ”” Send Notices</span>
+            <span className="auth-badge">🔔 Send Notices</span>
           </div>
         </div>
       </div>
 
-      {/* â”€â”€ RIGHT PANEL â”€â”€ */}
+      {/* —— RIGHT PANEL —— */}
       <div className="auth-panel-right">
         <div className="auth-form-card">
-          <Link to="/login" className="auth-back-link">â† Back to User Login</Link>
+          <Link to="/login" className="auth-back-link">← Back to User Login</Link>
 
           <h2 className="auth-form-title">Admin Sign In</h2>
           <p className="auth-form-subtitle">Enter your administrator credentials</p>
 
           {/* Restricted access notice */}
           <div className="auth-notice-box">
-            âš ï¸ Restricted Access â€” Authorized personnel only
+            ⚠️ Restricted Access — Authorized personnel only
           </div>
 
           {error && (
-            <div className="auth-alert auth-alert-error">âš ï¸ {error}</div>
+            <div className="auth-alert auth-alert-error">⚠️ {error}</div>
           )}
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="auth-field">
               <label className="auth-label">
-                <span className="auth-label-icon">ðŸ‘¤</span> Admin Username
+                <span className="auth-label-icon">👤</span> Admin Username
               </label>
               <input
                 className="auth-input"
@@ -115,7 +115,7 @@ export default function AdminLogin() {
                   onClick={() => setShowPass(!showPass)}
                   className="auth-eye-btn"
                 >
-                  {showPass ? "ðŸ™ˆ" : "ðŸ‘"}
+                  {showPass ? "🙈" : "ðŸ‘"}
                 </button>
               </div>
               <p style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>
@@ -135,7 +135,7 @@ export default function AdminLogin() {
 
           <p className="auth-footer-text" style={{ marginTop: 20 }}>
             Not an admin?{" "}
-            <Link to="/login" className="auth-footer-link">Go to User Login â†’</Link>
+            <Link to="/login" className="auth-footer-link">Go to User Login →</Link>
           </p>
         </div>
       </div>

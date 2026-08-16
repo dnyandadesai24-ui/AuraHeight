@@ -133,13 +133,13 @@ export default function ManageNotices() {
         {/* Pagination */}
         {!fetching && totalPages > 1 && (
           <div className="pagination" style={{ padding: "16px 24px", justifyContent: "flex-end" }}>
-            <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>â€¹</button>
+            <button className="page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>‹</button>
             {[...Array(totalPages)].map((_, i) => (
               <button key={i} className={`page-btn ${page === i + 1 ? "active" : ""}`} onClick={() => setPage(i + 1)}>
                 {i + 1}
               </button>
             ))}
-            <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>â€º</button>
+            <button className="page-btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>›</button>
           </div>
         )}
       </div>
