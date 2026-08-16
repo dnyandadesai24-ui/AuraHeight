@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -31,7 +31,7 @@ export default function Contact() {
   const contactInfo = [
     { icon: "📧", label: "Email", value: "admin@auraheights.com", link: "mailto:admin@auraheights.com" },
     { icon: "📞", label: "Phone", value: "+91 98765 43210", link: "tel:+919876543210" },
-    { icon: "ðŸ“", label: "Location", value: "123 Horizon Ave, Sector 45", link: "#" },
+    { icon: "📍", label: "Location", value: "123 Horizon Ave, Sector 45", link: "#" },
     { icon: "🕒", label: "Office Hours", value: "Mon–Sat, 9AM – 6PM", link: "#" },
   ];
 
@@ -91,7 +91,7 @@ export default function Contact() {
                   Follow Us
                 </h4>
                 <div style={{ display: "flex", gap: 12 }}>
-                  {["ðŸ¦ Twitter", "ðŸ“˜ Facebook", "ðŸ“· Instagram"].map((s, i) => (
+                  {["🐦 Twitter", "📘 Facebook", "📸 Instagram"].map((s, i) => (
                     <a
                       key={i}
                       href="#"
@@ -192,7 +192,7 @@ export default function Contact() {
                       Sending...
                     </span>
                   ) : (
-                    "ðŸ“¤ Send Message"
+                    "📤 Send Message"
                   )}
                 </button>
               </form>

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -49,7 +49,7 @@ export default function MyBookings() {
         }}
       >
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-tag" style={{ justifyContent: "center" }}>ðŸ”‘ Dashboard</div>
+          <div className="section-tag" style={{ justifyContent: "center" }}>🔑 Dashboard</div>
           <h1 className="section-title">
             My <span>Bookings</span>
           </h1>
@@ -65,7 +65,7 @@ export default function MyBookings() {
             <div style={{ textAlign: "center", padding: 40 }}><div className="spinner"></div></div>
           ) : bookings.length === 0 ? (
             <div style={{ textAlign: "center", padding: 60, background: "var(--bg-glass)", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>ðŸ </div>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>🏠</div>
               <h3 style={{ color: "var(--text-primary)" }}>You haven't booked any flats yet.</h3>
             </div>
           ) : (

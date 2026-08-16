@@ -65,7 +65,7 @@ export default function ContactMessages() {
       {/* Header */}
       <div className="page-header">
         <div className="page-header-left">
-          <h1>ðŸ’¬ Contact Messages</h1>
+          <h1>💬 Contact Messages</h1>
           <p>View and manage messages from the contact form</p>
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -89,7 +89,7 @@ export default function ContactMessages() {
       {/* Search */}
       <div style={{ marginBottom: 20 }}>
         <div className="search-input-wrapper" style={{ maxWidth: 400 }}>
-          <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>ðŸ”</span>
+          <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}>🔍</span>
           <input placeholder="Search by name, email, or subject..." value={search} onChange={e => setSearch(e.target.value)} />
         </div>
       </div>
@@ -104,7 +104,7 @@ export default function ContactMessages() {
             </div>
           ) : filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: 48, color: "var(--text-muted)" }}>
-              <div style={{ fontSize: 48, marginBottom: 12 }}>ðŸ“­</div>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>📭</div>
               <p>No messages found</p>
             </div>
           ) : (
@@ -166,7 +166,7 @@ export default function ContactMessages() {
               <h3 style={{ fontSize: 18, fontWeight: 700 }}>Message Details</h3>
               <div style={{ display: "flex", gap: 8 }}>
                 <button className="btn btn-danger btn-sm" onClick={() => handleDelete(selected.id)}>
-                  ðŸ—‘ï¸ Delete
+                  🗑️ Delete
                 </button>
                 <button className="btn btn-secondary btn-sm" onClick={() => setSelected(null)}>✖</button>
               </div>

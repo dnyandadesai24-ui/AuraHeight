@@ -65,7 +65,7 @@ export default function Register() {
             <span className="auth-badge">✅ Free Registration</span>
             <span className="auth-badge">📩 Email Confirmation</span>
             <span className="auth-badge">🌟 Full Portal Access</span>
-            <span className="auth-badge">ðŸ¡ Society Services</span>
+            <span className="auth-badge">🏠 Society Services</span>
           </div>
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function Register() {
                   onClick={() => setShowPass(!showPass)}
                   className="auth-eye-btn"
                 >
-                  {showPass ? "🙈" : "ðŸ‘"}
+                  {showPass ? "🙈" : "👁️"}
                 </button>
               </div>
             </div>

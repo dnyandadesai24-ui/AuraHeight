@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -63,7 +63,7 @@ export default function Complaints() {
         }}
       >
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="section-tag" style={{ justifyContent: "center" }}>ðŸ“ Helpdesk</div>
+          <div className="section-tag" style={{ justifyContent: "center" }}>🛠️ Helpdesk</div>
           <h1 className="section-title">
             Submit a <span>Complaint</span>
           </h1>

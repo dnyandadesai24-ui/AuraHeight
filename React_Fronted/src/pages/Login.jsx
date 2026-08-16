@@ -60,7 +60,7 @@ export default function Login() {
 
           {/* Feature pill badges */}
           <div className="auth-badges">
-            <span className="auth-badge">ðŸ  Flat Management</span>
+            <span className="auth-badge">🏠 Flat Management</span>
             <span className="auth-badge">📋 Booking Tracker</span>
             <span className="auth-badge">🔔 Notice Board</span>
             <span className="auth-badge">🔒 Secure Access</span>
@@ -116,7 +116,7 @@ export default function Login() {
                   onClick={() => setShowPass(!showPass)}
                   className="auth-eye-btn"
                 >
-                  {showPass ? "🙈" : "ðŸ‘"}
+                  {showPass ? "🙈" : "👁️"}
                 </button>
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function Login() {
           <div className="auth-divider-line"><span>OR</span></div>
 
           <Link to="/admin/login" className="auth-secondary-btn">
-            ðŸ›¡ï¸ Admin Login
+            🛡️ Admin Login
           </Link>
 
           <p className="auth-footer-text">

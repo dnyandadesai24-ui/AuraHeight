@@ -48,15 +48,15 @@ export default function AdminLogin() {
           <h2 className="auth-society-name">Aura Heights</h2>
           <p className="auth-society-sub">Co-Operative Housing Society Ltd.</p>
 
-          <h1 className="auth-panel-heading">Admin Portal ðŸ›¡ï¸</h1>
+          <h1 className="auth-panel-heading">Admin Portal 🛡️</h1>
           <p className="auth-panel-desc">
             Restricted access for authorized administrators only. Manage residents, flats, bookings, and society operations.
           </p>
 
           <div className="auth-badges">
-            <span className="auth-badge">ðŸ‘¥ Manage Residents</span>
-            <span className="auth-badge">ðŸ¢ Flat Oversight</span>
-            <span className="auth-badge">ðŸ“Š Booking Control</span>
+            <span className="auth-badge">👥 Manage Residents</span>
+            <span className="auth-badge">🏢 Flat Oversight</span>
+            <span className="auth-badge">📊 Booking Control</span>
             <span className="auth-badge">🔔 Send Notices</span>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function AdminLogin() {
 
             <div className="auth-field">
               <label className="auth-label">
-                <span className="auth-label-icon">ðŸ”</span> Password
+                <span className="auth-label-icon">🔑</span> Password
               </label>
               <div style={{ position: "relative" }}>
                 <input
@@ -115,7 +115,7 @@ export default function AdminLogin() {
                   onClick={() => setShowPass(!showPass)}
                   className="auth-eye-btn"
                 >
-                  {showPass ? "🙈" : "ðŸ‘"}
+                  {showPass ? "🙈" : "👁️"}
                 </button>
               </div>
               <p style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>
@@ -129,7 +129,7 @@ export default function AdminLogin() {
                   <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2, borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
                   Authenticating...
                 </span>
-              ) : "ðŸ›¡ï¸ Access Admin Panel"}
+              ) : "🛡️ Access Admin Panel"}
             </button>
           </form>
 
