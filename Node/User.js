@@ -357,7 +357,7 @@ app.post("/register", async (req, res) => {
                                     You can now log in to your account and explore our premium flats. If you find one you love, you can easily request a booking right from your dashboard.
                                 </p>
                                 <div style="text-align: center; margin: 36px 0;">
-                                    <a href="http://localhost:5173/login" style="background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px; display: inline-block;">Login to your account</a>
+                                    <a href="https://auraheight.pages.dev/login" style="background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 16px; display: inline-block;">Login to your account</a>
                                 </div>
                                 <p style="font-size: 15px; color: #64748b; margin-bottom: 0;">
                                     If you have any questions, feel free to reply to this email.<br>
