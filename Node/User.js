@@ -263,18 +263,16 @@ app.get("/admin/stats", verifyAdmin, async (req, res) => {
 
         // Role distribution
         const [roleStats] = await db.query(`
-            SELECT 
-                CASE 
-                    WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
-                    ELSE 'User'
-                END AS Role,
-                COUNT(*) AS count
-            FROM users
-            GROUP BY 
-                CASE 
-                    WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
-                    ELSE 'User'
-                END
+            SELECT Role, COUNT(*) AS count
+            FROM (
+                SELECT 
+                    CASE 
+                        WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
+                        ELSE 'User'
+                    END AS Role
+                FROM users
+            ) AS role_data
+            GROUP BY Role
         `);
 
         res.json({
