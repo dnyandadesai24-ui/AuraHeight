@@ -67,7 +67,7 @@ async function initDB() {
         `);
 
         await db.query(`
-            CREATE TABLE IF NOT EXISTS Users (
+            CREATE TABLE IF NOT EXISTS users (
                 User_ID INT AUTO_INCREMENT PRIMARY KEY,
                 Full_Name VARCHAR(255) NOT NULL,
                 Username VARCHAR(255) NOT NULL,
@@ -82,7 +82,7 @@ async function initDB() {
 
         // Drop the unique index on Username if it exists so duplicate usernames are allowed
         try {
-            await db.query("ALTER TABLE Users DROP INDEX Username");
+            await db.query("ALTER TABLE users DROP INDEX Username");
         } catch (e) {
             // Ignore error if index doesn't exist
         }
@@ -99,7 +99,7 @@ async function initDB() {
                 Status VARCHAR(50) DEFAULT 'Available',
                 User_ID INT DEFAULT NULL,
                 Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (User_ID) REFERENCES Users(User_ID) ON DELETE SET NULL
+                FOREIGN KEY (User_ID) REFERENCES users(User_ID) ON DELETE SET NULL
             )
         `);
 
@@ -111,7 +111,7 @@ async function initDB() {
                 Payment_Type VARCHAR(50) NOT NULL,
                 Booking_Status VARCHAR(50) DEFAULT 'Pending',
                 Booking_Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (User_ID) REFERENCES Users(User_ID) ON DELETE CASCADE,
+                FOREIGN KEY (User_ID) REFERENCES users(User_ID) ON DELETE CASCADE,
                 FOREIGN KEY (Flat_ID) REFERENCES flats(Flat_ID) ON DELETE CASCADE
             )
         `);
@@ -132,7 +132,7 @@ async function initDB() {
                 description TEXT NOT NULL,
                 status VARCHAR(50) DEFAULT 'Pending',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (user_id) REFERENCES Users(User_ID) ON DELETE CASCADE
+                FOREIGN KEY (user_id) REFERENCES users(User_ID) ON DELETE CASCADE
             )
         `);
 
@@ -232,7 +232,7 @@ app.get("/admin/verify", verifyAdmin, (req, res) => {
 app.get("/admin/stats", verifyAdmin, async (req, res) => {
     try {
         const [[userCount]] = await db.query(`
-            SELECT COUNT(*) AS total FROM Users 
+            SELECT COUNT(*) AS total FROM users 
         `);
         const [[residentCount]] = await db.query(`
             SELECT COUNT(DISTINCT User_ID) AS total FROM bookings WHERE Booking_Status = 'Confirmed'
@@ -245,7 +245,7 @@ app.get("/admin/stats", verifyAdmin, async (req, res) => {
 
         // Recent users
         const [recentUsers] = await db.query(`
-            SELECT User_ID, Full_Name, Email, Role, Created_At FROM Users 
+            SELECT User_ID, Full_Name, Email, Role, Created_At FROM users 
             WHERE User_ID IN (SELECT User_ID FROM bookings) 
                OR User_ID IN (SELECT User_ID FROM flats WHERE User_ID IS NOT NULL)
             ORDER BY Created_At DESC LIMIT 5
@@ -257,7 +257,7 @@ app.get("/admin/stats", verifyAdmin, async (req, res) => {
                    f.Flat_No, f.Wing, u.Full_Name
             FROM bookings b
             JOIN flats f ON b.Flat_ID = f.Flat_ID
-            JOIN Users u ON b.User_ID = u.User_ID
+            JOIN users u ON b.User_ID = u.User_ID
             ORDER BY b.Booking_Date DESC LIMIT 5
         `);
 
@@ -265,14 +265,14 @@ app.get("/admin/stats", verifyAdmin, async (req, res) => {
         const [roleStats] = await db.query(`
             SELECT 
                 CASE 
-                    WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
+                    WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
                     ELSE 'User'
                 END AS Role,
                 COUNT(*) AS count
-            FROM Users
+            FROM users
             GROUP BY 
                 CASE 
-                    WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
+                    WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
                     ELSE 'User'
                 END
         `);
@@ -318,7 +318,7 @@ app.post("/register", async (req, res) => {
             });
         }
 
-        const checkSql = "SELECT * FROM Users WHERE Email = ?";
+        const checkSql = "SELECT * FROM users WHERE Email = ?";
         const [existingUsers] = await db.query(checkSql, [email]);
 
         if (existingUsers.length > 0) {
@@ -328,7 +328,7 @@ app.post("/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const sql = `
-            INSERT INTO Users
+            INSERT INTO users
             (Full_Name, Username, Email, Mobile, Password, Role, Resident_Type)
             VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
@@ -415,7 +415,7 @@ app.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const userSql = "SELECT User_ID, Full_Name, Username, Email, Mobile, Password, Role, Resident_Type FROM Users WHERE Email = ?";
+        const userSql = "SELECT User_ID, Full_Name, Username, Email, Mobile, Password, Role, Resident_Type FROM users WHERE Email = ?";
         const [userData] = await db.query(userSql, [email]);
 
         if (userData.length === 0) {
@@ -462,7 +462,7 @@ app.post("/users", async (req, res) => {
         }
 
         const [existingUsers] = await db.query(
-            "SELECT * FROM Users WHERE Email = ?", [email]
+            "SELECT * FROM users WHERE Email = ?", [email]
         );
 
         if (existingUsers.length > 0) {
@@ -470,7 +470,7 @@ app.post("/users", async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const sql = `INSERT INTO Users (Full_Name, Username, Email, Mobile, Password, Role, Resident_Type) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const sql = `INSERT INTO users (Full_Name, Username, Email, Mobile, Password, Role, Resident_Type) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
         await db.query(sql, [full_name, username, email, mobile, hashedPassword, role, resident_type]);
         res.status(201).json({ message: "User added successfully" });
@@ -488,11 +488,11 @@ app.get("/users", async (req, res) => {
                    Email AS email, Mobile AS mobile, Role AS role,
                    Resident_Type AS resident_type, 
                    CASE 
-                       WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
+                       WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
                        ELSE 'User'
                    END AS user_status, 
                    Created_At AS created_at
-            FROM Users`;
+            FROM users`;
         const [users] = await db.query(sql);
         res.json(users);
     } catch (err) {
@@ -508,7 +508,7 @@ app.get("/users/:id", async (req, res) => {
             SELECT User_ID AS id, Full_Name AS full_name, Username AS username,
                    Email AS email, Mobile AS mobile, Role AS role,
                    Resident_Type AS resident_type, Created_At AS created_at
-            FROM Users WHERE User_ID = ?`;
+            FROM users WHERE User_ID = ?`;
         const [user] = await db.query(sql, [id]);
 
         if (user.length === 0) return res.status(404).json({ message: "User not found" });
@@ -532,10 +532,10 @@ app.put("/users/:id", async (req, res) => {
 
         if (password && password.trim() !== "") {
             const hashedPassword = await bcrypt.hash(password, 10);
-            sql = `UPDATE Users SET Full_Name=?, Username=?, Email=?, Mobile=?, Password=?, Role=?, Resident_Type=? WHERE User_ID=?`;
+            sql = `UPDATE users SET Full_Name=?, Username=?, Email=?, Mobile=?, Password=?, Role=?, Resident_Type=? WHERE User_ID=?`;
             params = [full_name, username, email, mobile, hashedPassword, role, resident_type, id];
         } else {
-            sql = `UPDATE Users SET Full_Name=?, Username=?, Email=?, Mobile=?, Role=?, Resident_Type=? WHERE User_ID=?`;
+            sql = `UPDATE users SET Full_Name=?, Username=?, Email=?, Mobile=?, Role=?, Resident_Type=? WHERE User_ID=?`;
             params = [full_name, username, email, mobile, role, resident_type, id];
         }
 
@@ -553,7 +553,7 @@ app.put("/users/:id", async (req, res) => {
 app.delete("/users/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const [result] = await db.query("DELETE FROM Users WHERE User_ID = ?", [id]);
+        const [result] = await db.query("DELETE FROM users WHERE User_ID = ?", [id]);
 
         if (result.affectedRows === 0) return res.status(404).json({ message: "User not found" });
         res.json({ message: "User deleted successfully" });
@@ -571,7 +571,7 @@ app.post("/search", async (req, res) => {
             SELECT User_ID AS id, Full_Name AS full_name, Username AS username,
                    Email AS email, Mobile AS mobile, Role AS role,
                    Resident_Type AS resident_type
-            FROM Users
+            FROM users
             WHERE (Full_Name LIKE ? OR Username LIKE ? OR Email LIKE ?)
               AND (User_ID IN (SELECT User_ID FROM bookings) 
                    OR User_ID IN (SELECT User_ID FROM flats WHERE User_ID IS NOT NULL))`;
@@ -585,7 +585,7 @@ app.post("/search", async (req, res) => {
     }
 });
 
-// Users pagination
+// users pagination
 app.get("/epagination", async (req, res) => {
     try {
         const page = Number(req.query.page) || 1;
@@ -594,26 +594,26 @@ app.get("/epagination", async (req, res) => {
 
         const statusFilter = req.query.status;
 
-        let countSql = `SELECT COUNT(*) AS total FROM Users`;
+        let countSql = `SELECT COUNT(*) AS total FROM users`;
         let dataSql = `
             SELECT User_ID AS id, Full_Name AS full_name, Username AS username,
                    Email AS email, Mobile AS mobile, Role AS role,
                    Resident_Type AS resident_type, 
                    CASE 
-                       WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
+                       WHEN EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed') THEN 'Resident'
                        ELSE 'User'
                    END AS user_status, 
                    Created_At AS created_at
-            FROM Users`;
+            FROM users`;
         
         let queryParams = [];
         
         if (statusFilter === 'Resident') {
-            countSql += ` WHERE EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed')`;
-            dataSql += ` WHERE EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed')`;
+            countSql += ` WHERE EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed')`;
+            dataSql += ` WHERE EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed')`;
         } else if (statusFilter === 'User') {
-            countSql += ` WHERE NOT EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed')`;
-            dataSql += ` WHERE NOT EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = Users.User_ID AND b.Booking_Status = 'Confirmed')`;
+            countSql += ` WHERE NOT EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed')`;
+            dataSql += ` WHERE NOT EXISTS (SELECT 1 FROM bookings b WHERE b.User_ID = users.User_ID AND b.Booking_Status = 'Confirmed')`;
         }
         
         dataSql += ` LIMIT ? OFFSET ?`;
@@ -713,7 +713,7 @@ app.get("/bookings", async (req, res) => {
                    u.Full_Name, u.Email
             FROM bookings b
             JOIN flats f ON b.Flat_ID = f.Flat_ID
-            JOIN Users u ON b.User_ID = u.User_ID
+            JOIN users u ON b.User_ID = u.User_ID
         `;
         const [result] = await db.query(sql);
         res.json(result);
@@ -730,7 +730,7 @@ app.get("/bookings/:id", async (req, res) => {
             SELECT b.*, f.Flat_No, f.Wing, f.Flat_Type, f.Area_Sqft, u.Full_Name, u.Email
             FROM bookings b
             JOIN flats f ON b.Flat_ID = f.Flat_ID
-            JOIN Users u ON b.User_ID = u.User_ID
+            JOIN users u ON b.User_ID = u.User_ID
             WHERE b.Booking_ID=?
         `;
         const [result] = await db.query(sql, [id]);
@@ -750,7 +750,7 @@ app.post("/bookings", async (req, res) => {
         if (flat.length === 0) return res.status(404).json({ message: "Flat not found" });
         if (flat[0].Status === "Booked") return res.status(400).json({ message: "Flat is already booked" });
 
-        const [user] = await db.query("SELECT Full_Name, Email FROM Users WHERE User_ID=?", [User_ID]);
+        const [user] = await db.query("SELECT Full_Name, Email FROM users WHERE User_ID=?", [User_ID]);
         if (user.length === 0) return res.status(404).json({ message: "User not found" });
 
         await db.query("INSERT INTO bookings (User_ID, Flat_ID, Payment_Type) VALUES (?, ?, ?)", [User_ID, Flat_ID, Payment_Type]);
@@ -759,7 +759,7 @@ app.post("/bookings", async (req, res) => {
         await db.query("UPDATE flats SET Status='Pending' WHERE Flat_ID=?", [Flat_ID]);
         
         // Update User Status to Resident
-        await db.query("UPDATE Users SET User_Status='Resident' WHERE User_ID=?", [User_ID]);
+        await db.query("UPDATE users SET User_Status='Resident' WHERE User_ID=?", [User_ID]);
 
         res.status(201).json({ message: "Flat booked successfully and is pending confirmation" });
     } catch (err) {
@@ -781,7 +781,7 @@ app.put("/bookings/:id", async (req, res) => {
         if (Booking_Status === "Confirmed") {
             await db.query("UPDATE flats SET Status='Booked' WHERE Flat_ID=?", [booking[0].Flat_ID]);
 
-            const [user] = await db.query("SELECT Full_Name, Email FROM Users WHERE User_ID=?", [booking[0].User_ID]);
+            const [user] = await db.query("SELECT Full_Name, Email FROM users WHERE User_ID=?", [booking[0].User_ID]);
             const [flat] = await db.query("SELECT * FROM flats WHERE Flat_ID=?", [booking[0].Flat_ID]);
 
             if (user.length > 0 && flat.length > 0) {
@@ -1005,7 +1005,7 @@ app.get("/admin/complaints", verifyAdmin, async (req, res) => {
     try {
         const [complaints] = await db.query(`
             SELECT c.*, u.Full_Name as user_name, u.Email as user_email
-            FROM complaints c JOIN Users u ON c.user_id = u.User_ID
+            FROM complaints c JOIN users u ON c.user_id = u.User_ID
             ORDER BY c.created_at DESC
         `);
         res.json(complaints);
@@ -1060,7 +1060,7 @@ Here is the website content you must use to answer questions:
 - Tagline: Manage Your Society Smarter & Faster. A powerful, all-in-one platform for modern residential societies. Simplify flat management, resident registration, and community administration.
 - Statistics: 500+ Happy Residents, 120+ Managed Flats, 300+ Successful Bookings.
 - Core Features:
-  1. Flats: Users can browse flats, check if they are Available or Booked, and filter by Wing (A, B, C) or Type (1BHK, 2BHK, 3BHK).
+  1. Flats: users can browse flats, check if they are Available or Booked, and filter by Wing (A, B, C) or Type (1BHK, 2BHK, 3BHK).
   2. Notices: A dedicated board for important society announcements and circulars.
   3. Complaints: Residents can register and track complaints (Categories: Maintenance, Security, Cleanliness, Others) with statuses (Pending, Resolved).
   4. Bookings: Residents can book society amenities like the Clubhouse, Gym, Swimming Pool, and Party Hall.
