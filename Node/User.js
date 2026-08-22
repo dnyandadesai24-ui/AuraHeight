@@ -334,9 +334,11 @@ app.post("/register", async (req, res) => {
             full_name, username, email, mobile, hashedPassword, role, resident_type
         ]);
 
-        try {
-            // Send Welcome Email to User
-            await transporter.sendMail({
+        // Send emails asynchronously to not block the registration response
+        (async () => {
+            try {
+                // Send Welcome Email to User
+                await transporter.sendMail({
                 from: '"AuraHeights" <dnyandadesai24@gmail.com>',
                 to: email,
                 subject: "Welcome to AuraHeights! 🎉",
@@ -394,9 +396,10 @@ app.post("/register", async (req, res) => {
                     </div>
                 `
             });
-        } catch (mailErr) {
-            console.error("Failed to send email:", mailErr.message);
-        }
+            } catch (mailErr) {
+                console.error("Failed to send email:", mailErr.message);
+            }
+        })();
 
         res.status(201).json({
             message: "User registered successfully",
