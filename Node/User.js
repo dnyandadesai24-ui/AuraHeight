@@ -551,6 +551,19 @@ app.put("/users/:id", async (req, res) => {
 app.delete("/users/:id", async (req, res) => {
     try {
         const { id } = req.params;
+
+        // Find flats booked by this user or owned directly
+        const [bookings] = await db.query("SELECT Flat_ID FROM bookings WHERE User_ID = ?", [id]);
+        const [flats] = await db.query("SELECT Flat_ID FROM flats WHERE User_ID = ?", [id]);
+        
+        const flatIds = [...bookings.map(b => b.Flat_ID), ...flats.map(f => f.Flat_ID)];
+        const uniqueFlatIds = [...new Set(flatIds)];
+
+        // Update those flats to Available
+        if (uniqueFlatIds.length > 0) {
+            await db.query("UPDATE flats SET Status='Available', User_ID=NULL WHERE Flat_ID IN (?)", [uniqueFlatIds]);
+        }
+
         const [result] = await db.query("DELETE FROM users WHERE User_ID = ?", [id]);
 
         if (result.affectedRows === 0) return res.status(404).json({ message: "User not found" });
