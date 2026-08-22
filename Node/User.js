@@ -339,10 +339,10 @@ app.post("/register", async (req, res) => {
             try {
                 // Send Welcome Email to User
                 await transporter.sendMail({
-                from: '"AuraHeights" <dnyandadesai24@gmail.com>',
-                to: email,
-                subject: "Welcome to AuraHeights! 🎉",
-                html: `
+                    from: 'AuraHeights <dnyandadesai24@gmail.com>',
+                    to: email,
+                    subject: "Welcome to AuraHeights! 🎉",
+                    html: `
                     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 40px 20px;">
                         <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.06);">
                             <div style="background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%); padding: 32px 20px; text-align: center;">
@@ -370,14 +370,15 @@ app.post("/register", async (req, res) => {
                         </div>
                     </div>
                 `
-            });
+                });
+                console.log("[Mailer] Welcome email sent to:", email);
 
-            // Send Alert to Admin
-            await transporter.sendMail({
-                from: '"AuraHeights System" <dnyandadesai24@gmail.com>',
-                to: "dnyandadesai24@gmail.com",
-                subject: "New User Registration",
-                html: `
+                // Send Alert to Admin
+                await transporter.sendMail({
+                    from: 'AuraHeights System <dnyandadesai24@gmail.com>',
+                    to: "dnyandadesai24@gmail.com",
+                    subject: "New User Registration",
+                    html: `
                     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 40px 20px;">
                         <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.06);">
                             <div style="background: #0f172a; padding: 24px 20px; text-align: center;">
@@ -395,9 +396,11 @@ app.post("/register", async (req, res) => {
                         </div>
                     </div>
                 `
-            });
+                });
+                console.log("[Mailer] Admin registration alert sent");
             } catch (mailErr) {
-                console.error("Failed to send email:", mailErr.message);
+                console.error("[Mailer] Failed to send registration email:", mailErr.message);
+                if (mailErr.response) console.error("[Mailer] SMTP Response:", mailErr.response);
             }
         })();
 
@@ -799,48 +802,56 @@ app.put("/bookings/:id", async (req, res) => {
             const [flat] = await db.query("SELECT * FROM flats WHERE Flat_ID=?", [booking[0].Flat_ID]);
 
             if (user.length > 0 && flat.length > 0) {
-                await transporter.sendMail({
-                    from: '"AuraHeights" <dnyandadesai24@gmail.com>',
-                    to: user[0].Email,
-                    subject: "Flat Booking Confirmed 🎉",
-                    html: `
-                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 40px 20px;">
-                        <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.06);">
-                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 32px 20px; text-align: center;">
-                                <h1 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 700;">Booking Confirmed!</h1>
-                            </div>
-                            <div style="padding: 40px 32px;">
-                                <p style="font-size: 16px; color: #334155; margin-top: 0; margin-bottom: 24px; line-height: 1.6;">
-                                    Hello <strong style="color: #0f172a; font-size: 18px;">${user[0].Full_Name}</strong>,<br><br>
-                                    Great news! Your flat booking has been successfully reviewed and <strong>accepted</strong> by the admin. Welcome to your new home!
-                                </p>
-                                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 24px; margin-bottom: 32px;">
-                                    <h3 style="margin-top: 0; color: #0f172a; font-size: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">Booking Details</h3>
-                                    <table style="width: 100%; border-collapse: collapse;">
-                                        <tr>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 10px 0; color: #64748b; font-size: 15px; border-top: 1px solid #f1f5f9;">Status</td>
-                                            <td style="padding: 10px 0; color: #10b981; font-weight: 800; text-align: right; font-size: 15px; border-top: 1px solid #f1f5f9; text-transform: uppercase;">✅ Booked</td>
-                                        </tr>
-                                    </table>
+                try {
+                    await transporter.sendMail({
+                        from: 'AuraHeights <dnyandadesai24@gmail.com>',
+                        to: user[0].Email,
+                        subject: "Flat Booking Confirmed 🎉",
+                        html: `
+                        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 40px 20px;">
+                            <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.06);">
+                                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 32px 20px; text-align: center;">
+                                    <h1 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 700;">Booking Confirmed!</h1>
                                 </div>
-                                
-                                <p style="font-size: 15px; color: #64748b; line-height: 1.6; margin: 0; text-align: center;">
-                                    Thank you for using the <strong>Society Management System</strong>.<br>If you have any further inquiries, please feel free to contact the administration.
-                                </p>
+                                <div style="padding: 40px 32px;">
+                                    <p style="font-size: 16px; color: #334155; margin-top: 0; margin-bottom: 24px; line-height: 1.6;">
+                                        Hello <strong style="color: #0f172a; font-size: 18px;">${user[0].Full_Name}</strong>,<br><br>
+                                        Great news! Your flat booking has been successfully reviewed and <strong>accepted</strong> by the admin. Welcome to your new home!
+                                    </p>
+                                    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 24px; margin-bottom: 32px;">
+                                        <h3 style="margin-top: 0; color: #0f172a; font-size: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">Booking Details</h3>
+                                        <table style="width: 100%; border-collapse: collapse;">
+                                            <tr>
+                                                <td style="padding: 10px 0; color: #64748b; font-size: 15px;">Flat No</td>
+                                                <td style="padding: 10px 0; color: #0f172a; font-weight: 600; text-align: right; font-size: 15px;">${flat[0].Flat_No} - Wing ${flat[0].Wing}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 10px 0; color: #64748b; font-size: 15px; border-top: 1px solid #f1f5f9;">Flat Type</td>
+                                                <td style="padding: 10px 0; color: #0f172a; font-weight: 600; text-align: right; font-size: 15px; border-top: 1px solid #f1f5f9;">${flat[0].Flat_Type}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 10px 0; color: #64748b; font-size: 15px; border-top: 1px solid #f1f5f9;">Status</td>
+                                                <td style="padding: 10px 0; color: #10b981; font-weight: 800; text-align: right; font-size: 15px; border-top: 1px solid #f1f5f9; text-transform: uppercase;">✅ Confirmed</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <p style="font-size: 15px; color: #64748b; line-height: 1.6; margin: 0; text-align: center;">
+                                        Thank you for choosing <strong>AuraHeights</strong>.<br>If you have any further inquiries, please contact the administration.
+                                    </p>
+                                </div>
+                                <div style="background-color: #f1f5f9; padding: 24px; text-align: center; border-top: 1px solid #e2e8f0;">
+                                    <p style="margin: 0; font-size: 13px; color: #94a3b8;">
+                                        &copy; ${new Date().getFullYear()} AuraHeights Society Management. All rights reserved.
+                                    </p>
+                                </div>
                             </div>
-                            
-                            <!-- Footer -->
-                            <div style="background-color: #f1f5f9; padding: 24px; text-align: center; border-top: 1px solid #e2e8f0;">
-                                <p style="margin: 0; font-size: 13px; color: #94a3b8;">
-                                    &copy; ${new Date().getFullYear()} Society Management Team.<br>All rights reserved.
-                                </p>
-                            </div>
-                            
-                        </div>
-                    </div>`
-                });
+                        </div>`
+                    });
+                    console.log("[Mailer] Booking confirmation email sent to:", user[0].Email);
+                } catch (mailErr) {
+                    console.error("[Mailer] Failed to send booking confirmation email:", mailErr.message);
+                    if (mailErr.response) console.error("[Mailer] SMTP Response:", mailErr.response);
+                }
             }
         } else if (Booking_Status === "Cancelled" || Booking_Status === "Rejected") {
             await db.query("UPDATE flats SET Status='Available' WHERE Flat_ID=?", [booking[0].Flat_ID]);
@@ -891,7 +902,7 @@ app.post("/contact", async (req, res) => {
         // Send email notification to Admin
         try {
             await transporter.sendMail({
-                from: '"AuraHeights Helpdesk" <dnyandadesai24@gmail.com>',
+                from: 'AuraHeights Helpdesk <dnyandadesai24@gmail.com>',
                 to: "dnyandadesai24@gmail.com",
                 replyTo: Email,
                 subject: `New Contact Message: ${Subject || 'No Subject'}`,
@@ -923,8 +934,10 @@ app.post("/contact", async (req, res) => {
                     </div>
                 `
             });
+            console.log("[Mailer] Contact form email sent to admin from:", Email);
         } catch (mailErr) {
-            console.error("Failed to send contact email:", mailErr.message);
+            console.error("[Mailer] Failed to send contact email:", mailErr.message);
+            if (mailErr.response) console.error("[Mailer] SMTP Response:", mailErr.response);
         }
 
         res.status(200).json({ message: "Contact message sent successfully" });
