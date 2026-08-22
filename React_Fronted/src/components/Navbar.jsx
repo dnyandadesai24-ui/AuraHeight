@@ -49,8 +49,8 @@ export default function Navbar() {
             { path: "/services", label: "Services" },
             { path: "/flats", label: "Flats" },
             { path: "/notices", label: "Notices" },
-            { path: "/contact", label: "Contact" },
             { path: "/complaints", label: "Complaints" },
+            { path: "/contact", label: "Contact" },
             ...(user ? [
               { path: "/my-bookings", label: "My Bookings" }
             ] : [])
@@ -132,8 +132,8 @@ export default function Navbar() {
               { path: "/services", label: "✨ Services" },
               { path: "/flats", label: "🏢 Flats" },
               { path: "/notices", label: "📌 Notices" },
-              { path: "/contact", label: "📞 Contact" },
               { path: "/complaints", label: "📝 Complaints" },
+              { path: "/contact", label: "📞 Contact" },
               ...(user ? [
                 { path: "/my-bookings", label: "🔑 My Bookings" }
               ] : [])
