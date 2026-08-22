@@ -50,10 +50,10 @@ export default function Navbar() {
             { path: "/flats", label: "Flats" },
             { path: "/notices", label: "Notices" },
             { path: "/complaints", label: "Complaints" },
-            { path: "/contact", label: "Contact" },
             ...(user ? [
               { path: "/my-bookings", label: "My Bookings" }
-            ] : [])
+            ] : []),
+            { path: "/contact", label: "Contact" }
           ].map(({ path, label }) => (
             <li key={path}>
               <Link
@@ -133,10 +133,10 @@ export default function Navbar() {
               { path: "/flats", label: "🏢 Flats" },
               { path: "/notices", label: "📌 Notices" },
               { path: "/complaints", label: "📝 Complaints" },
-              { path: "/contact", label: "📞 Contact" },
               ...(user ? [
                 { path: "/my-bookings", label: "🔑 My Bookings" }
-              ] : [])
+              ] : []),
+              { path: "/contact", label: "📞 Contact" }
             ].map(({ path, label }) => (
               <li key={path}>
                 <Link
